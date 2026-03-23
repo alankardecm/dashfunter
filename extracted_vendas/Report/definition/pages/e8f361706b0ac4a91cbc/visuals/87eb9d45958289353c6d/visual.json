@@ -1,0 +1,205 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "87eb9d45958289353c6d",
+  "position": {
+    "x": 17,
+    "y": 395,
+    "z": 1000,
+    "height": 325,
+    "width": 1233,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Protocolo",
+              "nativeQueryRef": "Protocolo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Nome Razão Social"
+                }
+              },
+              "queryRef": "Tabela1.Nome Razão Social",
+              "nativeQueryRef": "Nome Razão Social"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Status Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Status Protocolo",
+              "nativeQueryRef": "Status Protocolo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "MOTIVO 2"
+                }
+              },
+              "queryRef": "Tabela1.MOTIVO 2",
+              "nativeQueryRef": "MOTIVO 2"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "GP"
+                }
+              },
+              "queryRef": "Tabela1.GP",
+              "nativeQueryRef": "GP"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Planilha Vendas Vs Delivery"
+                        }
+                      },
+                      "Property": "Valor Total Realizado"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Tabela1.Valor Total Realizado)",
+              "nativeQueryRef": "Soma de Valor Total Realizado"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Planilha Vendas Vs Delivery"
+                  }
+                },
+                "Property": "Status Protocolo"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "339.9117521501595D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Status Protocolo"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "251.18734597944044D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Nome Razão Social"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "33.513200441603274D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.GP"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "304.331109304477D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.MOTIVO 2"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BoldHeaderFlashyRows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

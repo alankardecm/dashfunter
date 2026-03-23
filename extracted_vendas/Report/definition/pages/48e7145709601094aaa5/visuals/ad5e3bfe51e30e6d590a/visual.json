@@ -1,0 +1,381 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "ad5e3bfe51e30e6d590a",
+  "position": {
+    "x": 9.9921935987509762,
+    "y": 162.87275565964092,
+    "z": 1,
+    "height": 557.5644028103045,
+    "width": 1251.0226385636222,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Agenda Tecnicos OeM"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Atividade"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Mês"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Data Atividade.Variation.Hierarquia de datas.Mês",
+              "nativeQueryRef": "Data Atividade Mês",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Agenda Tecnicos OeM"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Atividade"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Dia"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Data Atividade.Variation.Hierarquia de datas.Dia",
+              "nativeQueryRef": "Data Atividade Dia",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "Equipe"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Equipe",
+              "nativeQueryRef": "Equipe",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Agenda Tecnicos OeM"
+                        }
+                      },
+                      "Property": "Protocolo"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Agenda Tecnicos OeM.Protocolo)",
+              "nativeQueryRef": "Contagem de Protocolo"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "_Valor Entregue"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM._Valor Entregue",
+              "nativeQueryRef": "_Valor Entregue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "f01e590b04070964a59a",
+        "ordinal": 0,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Agenda Tecnicos OeM"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Atividade"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Mês"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "df97523e7003ae1dbdc0",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Equipe"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3f309cbb810d90ab002d",
+        "ordinal": 2,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Agenda Tecnicos OeM"
+                  }
+                },
+                "Property": "Valor Mensal"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced",
+        "howCreated": "User"
+      },
+      {
+        "name": "4657e9c3555cec65c832",
+        "ordinal": 3,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Agenda Tecnicos OeM"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Atividade"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Mês"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "l",
+              "Entity": "LocalDateTable_8c194197-1068-4f45-8738-d93713fc702a",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "l"
+                          }
+                        },
+                        "Property": "Mês"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'março'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              },
+              "Annotations": {
+                "filterExpressionMetadata": {
+                  "expressions": [
+                    {
+                      "HierarchyLevel": {
+                        "Expression": {
+                          "Hierarchy": {
+                            "Expression": {
+                              "PropertyVariationSource": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "Agenda Tecnicos OeM"
+                                  }
+                                },
+                                "Name": "Variation",
+                                "Property": "Data Atividade"
+                              }
+                            },
+                            "Hierarchy": "Hierarquia de datas"
+                          }
+                        },
+                        "Level": "Mês"
+                      }
+                    }
+                  ],
+                  "decomposedIdentities": {
+                    "values": [
+                      [
+                        {
+                          "0": [
+                            {
+                              "Literal": {
+                                "Value": "'março'"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    ],
+                    "columns": [
+                      {
+                        "value": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "LocalDateTable_8c194197-1068-4f45-8738-d93713fc702a"
+                              }
+                            },
+                            "Property": "Mês"
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "valueMap": [
+                    {
+                      "0": "março"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "0cc4c6868ae750948270",
+        "ordinal": 4,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Agenda Tecnicos OeM"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Atividade"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Dia"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "23b7bc50debd641a0717",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "_Valor Entregue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d5e5e2a02c64e6dd7d3c",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Agenda Tecnicos OeM"
+                  }
+                },
+                "Property": "Protocolo"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

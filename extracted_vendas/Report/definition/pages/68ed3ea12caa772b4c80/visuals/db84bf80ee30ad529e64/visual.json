@@ -1,0 +1,391 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "db84bf80ee30ad529e64",
+  "position": {
+    "x": 16.881303335919316,
+    "y": 430.96974398758726,
+    "z": 1000,
+    "height": 288.96819239720713,
+    "width": 1244.2513576415827,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Protocolo",
+              "nativeQueryRef": "Protocolo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Nome Razão Social"
+                }
+              },
+              "queryRef": "Tabela1.Nome Razão Social",
+              "nativeQueryRef": "Nome Razão Social"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Produto"
+                }
+              },
+              "queryRef": "Tabela1.Produto",
+              "nativeQueryRef": "Produto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Status Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Status Protocolo",
+              "nativeQueryRef": "Status Protocolo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Tecnologia"
+                }
+              },
+              "queryRef": "Tabela1.Tecnologia",
+              "nativeQueryRef": "Tecnologia"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Planilha Vendas Vs Delivery"
+                        }
+                      },
+                      "Property": "Valor Total Realizado"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Tabela1.Valor Total Realizado)",
+              "nativeQueryRef": "Soma de Valor Total Realizado"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "147.96916770433504D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Tecnologia"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "281.06127934941844D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Nome Razão Social"
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "foreground": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BoldHeaderFlashyRows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d8bda131180d00b63088",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Nome Razão Social"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c275c26d8b6800b20ca4",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Protocolo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "c11d10dced6e9216b547",
+        "ordinal": 2,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Planilha Vendas Vs Delivery"
+                  }
+                },
+                "Property": "Valor Total Realizado"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e8a7f84801020b5286cd",
+        "ordinal": 3,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Status Protocolo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "953603f098d78a04eecc",
+        "ordinal": 4,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Status Protocolo"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "Planilha Vendas Vs Delivery",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "t"
+                              }
+                            },
+                            "Property": "Status Protocolo"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'CANCELADO'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'INEXISTENTE'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'Pausado Last Mile'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'Projetos Futuro 60 +'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "c9b49b7b71abc5920948",
+        "ordinal": 5,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Tecnologia"
+          }
+        },
+        "type": "Categorical"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

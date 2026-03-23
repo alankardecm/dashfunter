@@ -1,0 +1,502 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "8d9dd1e92eb0d26872c8",
+  "position": {
+    "x": 13.902249806051202,
+    "y": 360.4654771140419,
+    "z": 1000,
+    "height": 359.47245927075249,
+    "width": 1253.1885182311869,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Protocolo",
+              "nativeQueryRef": "Protocolo"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Planilha Vendas Vs Delivery"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Abertura"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Ano"
+                }
+              },
+              "queryRef": "Tabela1.Data Abertura.Variation.Hierarquia de datas.Ano",
+              "nativeQueryRef": "Data Abertura Ano"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Planilha Vendas Vs Delivery"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Abertura"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Mês"
+                }
+              },
+              "queryRef": "Tabela1.Data Abertura.Variation.Hierarquia de datas.Mês",
+              "nativeQueryRef": "Data Abertura Mês"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Planilha Vendas Vs Delivery"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Abertura"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Dia"
+                }
+              },
+              "queryRef": "Tabela1.Data Abertura.Variation.Hierarquia de datas.Dia",
+              "nativeQueryRef": "Data Abertura Dia"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Nome Razão Social"
+                }
+              },
+              "queryRef": "Tabela1.Nome Razão Social",
+              "nativeQueryRef": "Nome Razão Social"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Status Protocolo"
+                }
+              },
+              "queryRef": "Tabela1.Status Protocolo",
+              "nativeQueryRef": "Status Protocolo"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Planilha Vendas Vs Delivery"
+                        }
+                      },
+                      "Property": "Valor Total Realizado"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Tabela1.Valor Total Realizado)",
+              "nativeQueryRef": "Soma de Valor Total Realizado"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Planilha Vendas Vs Delivery"
+                  }
+                },
+                "Property": "Status Protocolo"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "423.1557533055604D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Nome Razão Social"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "352.3071340364252D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Tabela1.Status Protocolo"
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "foreground": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "100D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BoldHeaderFlashyRows'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "bb658d4e0b2142a408a1",
+        "ordinal": 0,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Planilha Vendas Vs Delivery"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Abertura"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Ano"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ee177a794d8064a43a1a",
+        "ordinal": 1,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Planilha Vendas Vs Delivery"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Abertura"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Dia"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "784e977b9801352cc380",
+        "ordinal": 2,
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Planilha Vendas Vs Delivery"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Abertura"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Mês"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bfc3903c533cc30d4e21",
+        "ordinal": 3,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Nome Razão Social"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4bee37f637e0ba03e558",
+        "ordinal": 4,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Protocolo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "30e5bc900269a679099e",
+        "ordinal": 5,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "STATUS AGRUPADO"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "Planilha Vendas Vs Delivery",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "t"
+                              }
+                            },
+                            "Property": "STATUS AGRUPADO"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'CANCELADOS'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'REFERENCIA'"
+                            }
+                          }
+                        ],
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'VENDAS CANCELADAS'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

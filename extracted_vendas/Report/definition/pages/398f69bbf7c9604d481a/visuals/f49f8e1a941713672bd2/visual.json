@@ -1,0 +1,111 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "f49f8e1a941713672bd2",
+  "position": {
+    "x": 340.73380171740831,
+    "y": 250.80405932864952,
+    "z": 7001,
+    "height": 299.76580796252927,
+    "width": 299.76580796252927,
+    "tabOrder": 7001
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lista de Pré Viabilidade - old"
+                    }
+                  },
+                  "Property": "NOME DO CLIENTE:"
+                }
+              },
+              "queryRef": "Lista de Pré Viabilidade - old.NOME DO CLIENTE:",
+              "nativeQueryRef": "NOME DO CLIENTE:"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Lista de Pré Viabilidade"
+                        }
+                      },
+                      "Property": "Protocolo"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Lista de Pré Viabilidade.Protocolo)",
+              "nativeQueryRef": "Soma de Protocolo"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Lista de Pré Viabilidade - old"
+                  }
+                },
+                "Property": "NOME DO CLIENTE:"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "2902d0390b6c8d250171",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade - old"
+              }
+            },
+            "Property": "NOME DO CLIENTE:"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3e0a00416c04403cd125",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Lista de Pré Viabilidade"
+                  }
+                },
+                "Property": "Protocolo"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

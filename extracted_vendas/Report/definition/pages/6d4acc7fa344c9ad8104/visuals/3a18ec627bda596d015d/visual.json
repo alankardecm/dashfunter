@@ -1,0 +1,150 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "3a18ec627bda596d015d",
+  "position": {
+    "x": 8.99297423887588,
+    "y": 403.68462138953942,
+    "z": 1,
+    "height": 316.75253708040594,
+    "width": 1258.0171740827479,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Protocolo"
+                }
+              },
+              "queryRef": "Planilha Vendas Vs Delivery.Protocolo",
+              "nativeQueryRef": "Protocolo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "Nome Razão Social"
+                }
+              },
+              "queryRef": "Planilha Vendas Vs Delivery.Nome Razão Social",
+              "nativeQueryRef": "Nome Razão Social"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Planilha Vendas Vs Delivery"
+                    }
+                  },
+                  "Property": "MOTIVO "
+                }
+              },
+              "queryRef": "Planilha Vendas Vs Delivery.MOTIVO ",
+              "nativeQueryRef": "MOTIVO "
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Planilha Vendas Vs Delivery"
+                        }
+                      },
+                      "Property": "Valor Total Realizado"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Planilha Vendas Vs Delivery.Valor Total Realizado)",
+              "nativeQueryRef": "Soma de Valor Total Realizado"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "b21fb2616e7a545d84dc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Protocolo"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f60e10b7a72ba02006e1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "Nome Razão Social"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "db99a4702e10c4eb62c3",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Planilha Vendas Vs Delivery"
+                  }
+                },
+                "Property": "Valor Total Realizado"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "462ad10a41040d64dd03",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Planilha Vendas Vs Delivery"
+              }
+            },
+            "Property": "MOTIVO "
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

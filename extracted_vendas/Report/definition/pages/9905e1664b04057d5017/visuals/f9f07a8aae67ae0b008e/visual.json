@@ -1,0 +1,231 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "f9f07a8aae67ae0b008e",
+  "position": {
+    "x": 652.49024199843871,
+    "y": 283.77829820452774,
+    "z": 5002,
+    "height": 436.65886026541767,
+    "width": 627.50975800156129,
+    "tabOrder": 5002
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lista de Pré Viabilidade"
+                    }
+                  },
+                  "Property": "CODIGO SMARK"
+                }
+              },
+              "queryRef": "Lista de Pré Viabilidade.CODIGO SMARK",
+              "nativeQueryRef": "CODIGO SMARK"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lista de Pré Viabilidade"
+                    }
+                  },
+                  "Property": "Nome do Cliente:"
+                }
+              },
+              "queryRef": "Lista de Pré Viabilidade.Nome do Cliente:",
+              "nativeQueryRef": "Nome do Cliente:"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lista de Pré Viabilidade"
+                    }
+                  },
+                  "Property": "Viabilidade2"
+                }
+              },
+              "queryRef": "Lista de Pré Viabilidade.Viabilidade2",
+              "nativeQueryRef": "Viabilidade2"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Lista de Pré Viabilidade"
+                    }
+                  },
+                  "Property": "Created By"
+                }
+              },
+              "queryRef": "Lista de Pré Viabilidade.Created By",
+              "nativeQueryRef": "Created By"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Lista de Pré Viabilidade"
+                  }
+                },
+                "Property": "Nome do Cliente:"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6cd0294897e133d76a83",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "Nome do Cliente:"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e0a094930b9ebc31c540",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "Status Aprovacao"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "5dc3984104c640093b08",
+        "ordinal": 2,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "Viabilidade2"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "cf46a326505e93090002",
+        "ordinal": 3,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "VirouProtocolo"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "l",
+              "Entity": "Lista de Pré Viabilidade",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "l"
+                          }
+                        },
+                        "Property": "VirouProtocolo"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "3f88ef3a3540079cd034",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "Created By"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e2c4d707c9c719cacc60",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Lista de Pré Viabilidade"
+              }
+            },
+            "Property": "CODIGO SMARK"
+          }
+        },
+        "type": "Categorical"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

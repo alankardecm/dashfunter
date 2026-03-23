@@ -1,0 +1,81 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "40047f5d52ce1113e493",
+  "displayName": "RANKING VALIDAÇÂO E IMPLANTAÇÂO",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "cadf25c0e7b3004049c5",
+    "type": "Default",
+    "parameters": [],
+    "referenceScope": "CrossReport"
+  },
+  "objects": {
+    "outspace": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'tela bi.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "tela_bi3822339921309964.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Normal'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "b4bc27bf100da1484dc7",
+      "target": "c4cc7ec30a00ac64a08a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1a967e8c5080003b31b",
+      "target": "b4bc27bf100da1484dc7",
+      "type": "DataFilter"
+    },
+    {
+      "source": "e1a967e8c5080003b31b",
+      "target": "c4cc7ec30a00ac64a08a",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b4bc27bf100da1484dc7",
+      "target": "8d321e4900b519495519",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b4bc27bf100da1484dc7",
+      "target": "5cbadd79c43ee867cdc4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "e1a967e8c5080003b31b",
+      "target": "8d321e4900b519495519",
+      "type": "DataFilter"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "041c1778cc8254137b11",
+  "position": {
+    "x": 9.186173642454655,
+    "y": 430.601889490062,
+    "z": 1000,
+    "height": 289.36446973732166,
+    "width": 1271.136777774663,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "Atividade"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Atividade",
+              "nativeQueryRef": "Atividade"
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Agenda Tecnicos OeM"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "Data Atividade"
+                        }
+                      },
+                      "Hierarchy": "Hierarquia de datas"
+                    }
+                  },
+                  "Level": "Dia"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Data Atividade.Variation.Hierarquia de datas.Dia",
+              "nativeQueryRef": "Data Atividade Dia"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "Coluna Calendario"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Coluna Calendario",
+              "nativeQueryRef": "Coluna Calendario"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Status",
+              "nativeQueryRef": "Status"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Agenda Tecnicos OeM"
+                        }
+                      },
+                      "Property": "Valor Mensal"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Agenda Tecnicos OeM.Valor Mensal)",
+              "nativeQueryRef": "Soma de Valor Mensal"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Agenda Tecnicos OeM"
+                    }
+                  },
+                  "Property": "Dias Replicado"
+                }
+              },
+              "queryRef": "Agenda Tecnicos OeM.Dias Replicado",
+              "nativeQueryRef": "Dias Replicado"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "455.5244630609252D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Agenda Tecnicos OeM.Coluna Calendario"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d3c1985a3acab608e54c",
+        "ordinal": 0,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Atividade"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "be26d62020004406c0a2",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Coluna Calendario"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bde4d35cb4d7b010211b",
+        "ordinal": 2,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Dias Replicado"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "9bfa93073a0230a75021",
+        "ordinal": 3,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Status"
+          }
+        },
+        "type": "Categorical",
+        "objects": {
+          "general": [
+            {
+              "properties": {}
+            }
+          ]
+        }
+      },
+      {
+        "name": "68a1b5c06b9ed2ee1cd3",
+        "ordinal": 4,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Agenda Tecnicos OeM"
+                  }
+                },
+                "Property": "Valor Mensal"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "bf996fefedda4a829750",
+        "ordinal": 5,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Agenda Tecnicos OeM"
+              }
+            },
+            "Property": "Status"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      },
+      {
+        "name": "a53cbd42c9311d6e490b",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "PropertyVariationSource": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Agenda Tecnicos OeM"
+                      }
+                    },
+                    "Name": "Variation",
+                    "Property": "Data Atividade"
+                  }
+                },
+                "Hierarchy": "Hierarquia de datas"
+              }
+            },
+            "Level": "Dia"
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

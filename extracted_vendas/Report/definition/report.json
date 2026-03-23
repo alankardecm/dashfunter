@@ -1,0 +1,251 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU10",
+      "reportVersionAtImport": {
+        "visual": "1.8.101",
+        "report": "2.0.101",
+        "page": "1.3.101"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU10",
+          "path": "BaseThemes/CY24SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Foto_Charline8775136645979656.jpg",
+          "path": "Foto_Charline8775136645979656.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_diego9056314902035476.jpg",
+          "path": "Foto_diego9056314902035476.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Giovana30577435349378523.jpg",
+          "path": "Foto_Giovana30577435349378523.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Iara4563571268296107.jpg",
+          "path": "Foto_Iara4563571268296107.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Leticia4736297012947307.jpg",
+          "path": "Foto_Leticia4736297012947307.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Magne5762757594788576.jpg",
+          "path": "Foto_Magne5762757594788576.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Rafael6011460367285051.jpg",
+          "path": "Foto_Rafael6011460367285051.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Foto_Samuel35733374090560577.jpg",
+          "path": "Foto_Samuel35733374090560577.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "Plano_de_fundo_desempenho_vali03036923872716646.png",
+          "path": "Plano_de_fundo_desempenho_vali03036923872716646.png",
+          "type": "Image"
+        },
+        {
+          "name": "Plano_de_fundo_desempenho_vali30765559504242224.png",
+          "path": "Plano_de_fundo_desempenho_vali30765559504242224.png",
+          "type": "Image"
+        },
+        {
+          "name": "Plano_de_fundo_desempenho_vali3758590179908854.png",
+          "path": "Plano_de_fundo_desempenho_vali3758590179908854.png",
+          "type": "Image"
+        },
+        {
+          "name": "Plano_de_fundo_desempenho_vali5141020002763391.png",
+          "path": "Plano_de_fundo_desempenho_vali5141020002763391.png",
+          "type": "Image"
+        },
+        {
+          "name": "Plano_de_fundo_desempenho43532578587465676.png",
+          "path": "Plano_de_fundo_desempenho43532578587465676.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi04700100534994012.png",
+          "path": "tela_bi04700100534994012.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi16858144014984444.png",
+          "path": "tela_bi16858144014984444.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi1816840266527706.png",
+          "path": "tela_bi1816840266527706.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi18307419238454192.png",
+          "path": "tela_bi18307419238454192.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi18878673880275987.png",
+          "path": "tela_bi18878673880275987.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi2786462357663292.png",
+          "path": "tela_bi2786462357663292.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi29577807837423287.png",
+          "path": "tela_bi29577807837423287.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi2982177626749174.png",
+          "path": "tela_bi2982177626749174.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi2986406464271534.png",
+          "path": "tela_bi2986406464271534.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi32924804545284303.png",
+          "path": "tela_bi32924804545284303.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi3822339921309964.png",
+          "path": "tela_bi3822339921309964.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4230939374868309.png",
+          "path": "tela_bi4230939374868309.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4255772493807366.png",
+          "path": "tela_bi4255772493807366.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi44480183866793.png",
+          "path": "tela_bi44480183866793.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4577313156037235.png",
+          "path": "tela_bi4577313156037235.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4622713682025532.png",
+          "path": "tela_bi4622713682025532.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4686325063750324.png",
+          "path": "tela_bi4686325063750324.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi4979515874290479.png",
+          "path": "tela_bi4979515874290479.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi7430267604839846.png",
+          "path": "tela_bi7430267604839846.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi7947275578377281.png",
+          "path": "tela_bi7947275578377281.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi8853642718331906.png",
+          "path": "tela_bi8853642718331906.png",
+          "type": "Image"
+        },
+        {
+          "name": "tela_bi9319581499347507.png",
+          "path": "tela_bi9319581499347507.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

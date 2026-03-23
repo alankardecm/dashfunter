@@ -1,0 +1,4705 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 26,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 106,
+      "panels": [],
+      "title": "Painel Geral",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 0,
+        "y": 1
+      },
+      "id": 223,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div id=\"scalable-container\" style=\"width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5px;\">\r\n  <h1 id=\"title-text\" style=\"margin:0; color:#66FF66; font-family:Arial, sans-serif; text-shadow:1px 1px 2px rgba(0,0,0,0.5); white-space:nowrap;\">\r\n    Carteira <span style=\"color:#FF4500;\">GN$GN</span>\r\n  </h1>\r\n  <h2 id=\"value-text\" style=\"margin:0; color:#66FF66; font-family:Arial, sans-serif; text-shadow:1px 1px 2px rgba(0,0,0,0.5); white-space:nowrap;\">\r\n    <span style=\"color:#f3b29b;\">${GN:text}</span>\r\n  </h2>\r\n</div>\r\n",
+        "mode": "html"
+      },
+      "pluginVersion": "12.1.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Quantidade",
+                  "Corporativo",
+                  "PME"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 7,
+        "x": 9,
+        "y": 1
+      },
+      "id": 85,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  coalesce(Insignia.title, '(Campo não preenchido)') AS \"Grupo Clientes\",\r\n  COUNT(DISTINCT Clientes.id) AS \"Quantidade\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations as pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people as Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN insignias as Insignia on Insignia.id = Clientes.insignia_id\r\nWHERE\r\n  Vendedor.id = $GN -- (Acassio Maciel) Filtro do vendedor\r\n    AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\r\n\r\nGROUP BY\r\n  Insignia.title\r\nORDER BY\r\n  \"Quantidade\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Grupo Clientes",
+      "transparent": true,
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 86,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Código$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    Cliente.id AS \"Código\"\r\n\r\n FROM people AS Cliente \r\n LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\r\n LEFT JOIN people_crm_informations pci ON pci.person_id = Cliente.id\r\n LEFT JOIN people AS Vendedor ON Vendedor.id=pci.proprietary_id\r\n\r\nWHERE Vendedor.id = $GN\r\nAND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\r\n\r\ngroup by Cliente.id\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Quant. Clientes",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Valor Contrato"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 19,
+        "y": 5
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Contrato$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Contratos.id AS \"Contrato\"\r\n  -- Contratos.v_stage AS \"Status Contrato\"\r\nFROM\r\n  people AS Cliente\r\n  LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Cliente.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE\r\n  Vendedor.id = $GN\r\n  AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\r\nORDER BY\r\n  \"Contrato\"",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Quant. Contratos",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyBRL"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 6
+      },
+      "id": 84,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  CONCAT('R$ ', FORMAT(SUM(Contratos.amount), 2, 'de_DE')) AS \"Valor Contrato\"\r\n\r\nFROM people as Clientes\r\nINNER JOIN contracts as Contratos ON Contratos.client_id = Clientes.id\r\nINNER JOIN people_crm_informations as pci ON pci.person_id = Clientes.id\r\nINNER JOIN people as Vendedor ON Vendedor.id = pci.proprietary_id\r\n\r\nWHERE \r\nContratos.v_stage != 'Cancelado'  -- Adicionei filtro para excluir cancelados\r\nAND Vendedor.id = $GN -- (Acassio Maciel) Filtro do vendedor\r\n\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Valor Da carteira",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyBRL"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 6
+      },
+      "id": 88,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  CONCAT ('R$ ', FORMAT (AVG(Contratos.amount), 2, 'de_DE')) AS \"Valor Contrato\"\nFROM\n  people as Clientes\n  INNER JOIN contracts as Contratos ON Contratos.client_id = Clientes.id\n  INNER JOIN people_crm_informations as pci ON pci.person_id = Clientes.id\n  INNER JOIN people as Vendedor ON Vendedor.id = pci.proprietary_id\nWHERE\n  Contratos.v_stage != 'Cancelado' -- Adicionei filtro para excluir cancelados\n  AND Vendedor.id = $GN -- (Acassio Maciel) Filtro do vendedor",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Ticket Médio de contratos",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 415,
+      "panels": [],
+      "title": "Contratos filtrados por data de finalização",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 413,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Data de finalização"
+          }
+        ]
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    Cliente.id AS \"codigo_cliente\",\r\n    Cliente.name AS \"Razão social\",\r\n    -- TO_CHAR(Contratos.date, 'DD/MM/YYYY') as \"Data contrato\"\r\n        CONCAT(\r\n    SUBSTRING(Cliente.tx_id, 1, 2), '.',       -- primeiros dois dígitos\r\n    SUBSTRING(Cliente.tx_id, 3, 3), '.',       -- três dígitos do meio\r\n    SUBSTRING(Cliente.tx_id, 6, 3), '/',       -- mais três dígitos\r\n    SUBSTRING(Cliente.tx_id, 9, 4), '-',       -- quatro dígitos antes do traço\r\n    SUBSTRING(Cliente.tx_id, 13, 2)            -- últimos dois dígitos\r\n  ) AS \"CNPJ\",\r\n  Contratos.id AS \"Contrato\",\r\n  DATE_FORMAT(beginning_date, '%d/%m/%Y') AS \"Data de inicio\",\r\n  DATE_FORMAT(final_date, '%d/%m/%Y') AS \"Data de finalização\"\r\n\r\n    -- Contratos.seller_1_id AS \"ID vendedor\",\r\n    -- Vendedor.name AS \"Vendedor\"\r\nFROM\r\n  people AS Cliente\r\n  LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\r\n  LEFT JOIN people_crm_informations pci ON pci.person_id = Cliente.id\r\n  LEFT JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE Vendedor.id = $GN\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${razao_social}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.name ILIKE '%${razao_social}%'\r\n)\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${nome_fantasia}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.name_2 ILIKE '%${nome_fantasia}%'\r\n)\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${CNPJ}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.tx_id ILIKE '%${CNPJ}%'\r\n)\r\nAND (\r\n    '${id_contrato}' = '' \r\n    OR \r\n    Contratos.id::text ILIKE '%${id_contrato}%'\r\n)\r\nAND Contratos.v_stage != 'Cancelado'  -- Adicionei filtro para excluir cancelados\r\nAND final_date BETWEEN $__timeFrom() AND $__timeTo()\r\n-- group by Cliente.id\r\n-- LIMIT 10\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Contratos filtrados por data de finalização",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 58,
+      "panels": [],
+      "title": "Clientes",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Código"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "link cliente",
+                    "url": "/d/auhsp60Nk/funter-consulta-base-de-carteira-v2-0?var-razao_social=&var-CNPJ=&var-Clientes=${__value.raw}&var-Produtos=All&${GN:queryparam}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 8,
+        "x": 0,
+        "y": 20
+      },
+      "id": 19,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Data contrato"
+          }
+        ]
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    Cliente.id AS \"Código\",\r\n    Cliente.name AS \"Razão social\",\r\n    -- TO_CHAR(Contratos.date, 'DD/MM/YYYY') as \"Data contrato\"\r\n        CONCAT(\r\n    SUBSTRING(Cliente.tx_id, 1, 2), '.',       -- primeiros dois dígitos\r\n    SUBSTRING(Cliente.tx_id, 3, 3), '.',       -- três dígitos do meio\r\n    SUBSTRING(Cliente.tx_id, 6, 3), '/',       -- mais três dígitos\r\n    SUBSTRING(Cliente.tx_id, 9, 4), '-',       -- quatro dígitos antes do traço\r\n    SUBSTRING(Cliente.tx_id, 13, 2)            -- últimos dois dígitos\r\n  ) AS \"CNPJ\"\r\n\r\n    -- Contratos.seller_1_id AS \"ID vendedor\",\r\n    -- Vendedor.name AS \"Vendedor\"\r\nFROM\r\n  people AS Cliente\r\n  LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\r\n  LEFT JOIN people_crm_informations pci ON pci.person_id = Cliente.id\r\n  LEFT JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE Vendedor.id = $GN\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${razao_social}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.name ILIKE '%${razao_social}%'\r\n)\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${nome_fantasia}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.name_2 ILIKE '%${nome_fantasia}%'\r\n)\r\nAND (\r\n    -- Se a variável não foi preenchida no Grafana\r\n    '${CNPJ}' = '' \r\n    OR \r\n    -- Se foi preenchida, faz a busca com LIKE\r\n    Cliente.tx_id ILIKE '%${CNPJ}%'\r\n)\r\nAND (\r\n    '${id_contrato}' = '' \r\n    OR \r\n    Contratos.id::text ILIKE '%${id_contrato}%'\r\n)\r\nAND Contratos.v_stage != 'Cancelado'  -- Adicionei filtro para excluir cancelados\r\ngroup by Cliente.id\r\n-- LIMIT 10\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Lista Clientes",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 10,
+        "x": 8,
+        "y": 20
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Razão Social$/",
+          "limit": 0,
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 25
+        },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Clientes.name AS \"Razão Social\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Razão Social",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "Informação dos contratos do Cliente",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Contrato"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "link contrato",
+                    "url": "/d/auhsp60Nk/funter-consulta-base-de-carteira-v2-0?var-razao_social=&var-CNPJ=&${Clientes:queryparam}&var-Contrato=${__value.raw}&var-Produtos=All&${GN:queryparam}\n"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 6,
+        "x": 18,
+        "y": 20
+      },
+      "id": 87,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Contratos.id AS \"Contrato\",\r\n  Contratos.v_stage AS \"Status\",\r\n  Contratos.v_status as \"Estagio \"\r\nFROM\r\n  people AS Clientes\r\n  LEFT JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN\r\n  -- AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\r\nORDER BY\r\n  \"Contrato\"",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Contratos",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nome Fantasia"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "(Campo não preenchido)": {
+                        "color": "dark-red",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 10,
+        "x": 8,
+        "y": 23
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 25
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n coalesce(Clientes.name_2, '(Campo não preenchido)') AS \"Nome Fantasia\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Nome Fantasia",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 8,
+        "y": 26
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^CNPJ$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 20
+        },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n    CONCAT(\r\n    SUBSTRING(Clientes.tx_id, 1, 2), '.',       -- primeiros dois dígitos\r\n    SUBSTRING(Clientes.tx_id, 3, 3), '.',       -- três dígitos do meio\r\n    SUBSTRING(Clientes.tx_id, 6, 3), '/',       -- mais três dígitos\r\n    SUBSTRING(Clientes.tx_id, 9, 4), '-',       -- quatro dígitos antes do traço\r\n    SUBSTRING(Clientes.tx_id, 13, 2)            -- últimos dois dígitos\r\n  ) AS \"CNPJ\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "CNPJ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "currencyBRL"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 13,
+        "y": 26
+      },
+      "id": 150,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": true
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  CONCAT ('R$ ', FORMAT (SUM(Contratos.amount), 2, 'de_DE')) AS \"Valor Contrato\"\r\nFROM\r\n  people AS Clientes\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\nWHERE\r\n  Vendedor.id = $GN\r\n  AND Clientes.id IN ($Clientes)\r\n  AND Contratos.v_stage != 'Cancelado' -- Adicionei filtro para excluir cancelados",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Valor Do Contrato",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 8,
+        "y": 29
+      },
+      "id": 385,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Telefone$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Clientes.phone AS \"Telefone\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Telefone contato",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "Campo não preenchido"
+                }
+              },
+              "type": "special"
+            },
+            {
+              "options": {
+                "match": "empty",
+                "result": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "Campo não preenchido"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 13,
+        "y": 29
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Telefone$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 30
+        },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Clientes.cell_phone_1 AS \"Telefone\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Celular contato",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 8,
+        "y": 32
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Email$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 20
+        },
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Clientes.email AS \"Email\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Email contato",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "transparent",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 13,
+        "y": 32
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 20
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  coalesce(Insignia.title, '(Campo não preenchido)') AS \"Grupo Clientes\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations as pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people as Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN insignias as Insignia on Insignia.id = Clientes.insignia_id\r\nWHERE\r\n  Clientes.id IN ($Clientes)\r\n  AND Vendedor.id = $GN",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Grupo Clientes",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "beuvtsto1cglcd"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Valor Contrato"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 16,
+        "y": 32
+      },
+      "id": 141,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Contrato$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 50
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  Contratos.id AS \"Contrato\"\r\nFROM\r\n  people AS Clientes\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  INNER JOIN contracts as Contratos ON Contratos.client_id = Clientes.id\r\nWHERE\r\n  Clientes.id IN ('$Clientes')\r\n  AND Vendedor.id = $GN\r\n  AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\r\nORDER BY\r\n  \"Contrato\"",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "planned_amount"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "assignments",
+          "timeColumn": "beginning_date",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Quant. Contratos",
+      "type": "stat"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 260,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem contato"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 7,
+            "x": 0,
+            "y": 36
+          },
+          "id": 364,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "allValues"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "9.0.4",
+          "repeat": "contatos",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Contato.name AS \"Nome\"\r\nFROM\r\n  people Clientes\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  JOIN people_contacts PC ON PC.person_id = Clientes.id\r\n  JOIN people Contato ON Contato.id = PC.contact_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Contato.id IN ($contatos)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Nome contato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 1,
+                      "text": "Sem contato"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 9,
+            "x": 7,
+            "y": 36
+          },
+          "id": 313,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "allValues"
+              ],
+              "fields": "/^Email$/",
+              "values": false
+            },
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "9.0.4",
+          "repeat": "contatos",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Contato.email AS \"Email\"\r\nFROM\r\n  people Clientes\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  JOIN people_contacts PC ON PC.person_id = Clientes.id\r\n  JOIN people Contato ON Contato.id = PC.contact_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Contato.id IN ($contatos)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Email contato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem contato"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 8,
+            "x": 16,
+            "y": 36
+          },
+          "id": 262,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "center",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "allValues"
+              ],
+              "fields": "/^Telefone$/",
+              "values": false
+            },
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value"
+          },
+          "pluginVersion": "9.0.4",
+          "repeat": "contatos",
+          "repeatDirection": "v",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Contato.phone AS \"Telefone\"\r\nFROM\r\n  people Clientes\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  JOIN people_contacts PC ON PC.person_id = Clientes.id\r\n  JOIN people Contato ON Contato.id = PC.contact_id\r\nwhere\r\n  Clientes.id IN ($Clientes)\r\n  AND Contato.id IN ($contatos)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Telefone contato",
+          "type": "stat"
+        }
+      ],
+      "title": "Mais Contatos",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 27,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 40
+          },
+          "id": 21,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  Contratos.id AS \"Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n  -- Order by \"Contrato\"",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "ID Contrato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 40
+          },
+          "id": 23,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  CONCAT('R$ ', FORMAT(Contratos.amount, 2, 'de_DE')) AS \"Valor Contrato\" \r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Valor Contrato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "currencyBRL"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 10,
+            "x": 8,
+            "y": 40
+          },
+          "id": 225,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Vendedor.name AS \"Vendedor\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Vendedor Contrato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Produtos adquiridos mediante ao contrato",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Contrato"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 94
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 6,
+            "x": 18,
+            "y": 40
+          },
+          "id": 15,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  -- Contratos.id AS \"Contrato\",\r\n  Produtos.title AS \"Produto\",\r\n  Produtos.code AS \"Código\",\r\n  Etiquetas.service_tag AS \"Etiqueta\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN contract_service_tags Etiquetas ON Etiquetas.id = RCI.contract_service_tag_id\r\nWHERE\r\n  Contratos.id IN ($Contrato)\r\n  -- and RCI.is_composition = false\r\n  AND Vendedor.id = $GN",
+              "refId": "B",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            },
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": true,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  -- Contratos.id AS \"Contrato\",\r\n  Produtos.title AS \"Produto\",\r\n  Produtos.code AS \"Código\",\r\n  Etiquetas.title AS \"Etiqueta\"\r\nFROM\r\n  contract_items RCI\r\n  JOIN contracts Contratos ON Contratos.id = RCI.contract_id\r\n  JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN people Clientes ON Clientes.id = Contratos.client_id\r\n  JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  JOIN contract_service_tags Etiquetas ON Etiquetas.id = RCI.contract_service_tag_id\r\nWHERE\r\n  Contratos.id IN ($Contrato)\r\n  and RCI.is_composition = false\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Produtos",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 8,
+            "x": 0,
+            "y": 43
+          },
+          "id": 2,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Contratos.description AS \"Descrição Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Descrição",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 5,
+            "x": 8,
+            "y": 44
+          },
+          "id": 248,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  CDC.title  AS \"Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  INNER JOIN contract_date_configurations CDC ON CDC.id = Contratos.contract_date_configuration_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n  -- Order by \"Contrato\"",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Ciclo faturamento",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 5,
+            "x": 13,
+            "y": 44
+          },
+          "id": 247,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  CDC.collection_day  AS \"Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  INNER JOIN contract_date_configurations CDC ON CDC.id = Contratos.contract_date_configuration_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n  -- Order by \"Contrato\"",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Dia de Vencimento",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "center",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 10,
+            "x": 8,
+            "y": 47
+          },
+          "id": 24,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  DATE_FORMAT(beginning_date, '%d/%m/%Y') AS \"Data de inicio\", \r\n  DATE_FORMAT(final_date, '%d/%m/%Y') AS \"Data de finalização\",\r\n  DATE_FORMAT(billing_beginning_date, '%d/%m/%Y') AS \"Inicio de Faturamento\", \r\n  DATE_FORMAT(billing_final_date, '%d/%m/%Y') AS \"Final de faturamento\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Datas Contrato",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 48
+          },
+          "id": 152,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  Contratos.v_status AS \"Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n  -- Order by \"Contrato\"",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Estágio do Contrato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Informação do contrato ${Contrato} do Cliente",
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "string"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 48
+          },
+          "id": 153,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  Contratos.v_stage AS \"Contrato\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nwhere\r\n  Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\n  -- Order by \"Contrato\"",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Status do Contrato",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Endereço da contratação",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 16,
+            "x": 0,
+            "y": 51
+          },
+          "id": 81,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  CONCAT (\r\n    Endereco.street,\r\n    ', ',\r\n    Endereco.number,\r\n    CASE\r\n      WHEN Endereco.address_complement IS NOT NULL\r\n      AND Endereco.address_complement != '' THEN CONCAT (' - ', Endereco.address_complement)\r\n      ELSE ''\r\n    END,\r\n    ' - ',\r\n    Endereco.neighborhood\r\n  ) as \"Endereço Completo\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  LEFT JOIN people_addresses Endereco ON Endereco.id = Contratos.people_address_id\r\nWHERE\r\n  RCI.is_composition = false\r\n  AND Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\nGROUP BY\r\n  Endereco.id",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Endereço",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "CEP da contratação",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 16,
+            "y": 51
+          },
+          "id": 80,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  Endereco.postal_code as \"CEP\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  LEFT JOIN people_addresses Endereco ON Endereco.id = Contratos.people_address_id\r\nWHERE\r\n  RCI.is_composition = false\r\n  AND Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\nGROUP BY\r\n  Endereco.id",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CEP",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Cidade da contratação",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 19,
+            "y": 51
+          },
+          "id": 66,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n  CONCAT(Endereco.city, ' - ', Endereco.state, ', ', Endereco.country) as \"Endereço\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  LEFT JOIN people_addresses Endereco ON Endereco.id = Contratos.people_address_id\r\nWHERE\r\n  RCI.is_composition = false\r\n  AND Clientes.id = ($Clientes)\r\n  AND Contratos.id = ($Contrato)\r\n  AND Vendedor.id = $GN\r\nGROUP BY\r\n  Endereco.id",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Cidade",
+          "type": "stat"
+        }
+      ],
+      "title": "$Contrato",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 31,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 56
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Produto$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "value",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Produtos.title AS \"Produto\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 56
+          },
+          "id": 39,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Produtos.code AS \"Código\"\r\nFROM\r\n  contract_items RCI\r\n  JOIN contracts Contratos ON Contratos.id = RCI.contract_id\r\n  JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN people Clientes ON Clientes.id = Contratos.client_id\r\n  JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE\r\n  Contratos.id IN ($Contrato)\r\n  AND Produtos.code IN ($Produtos)\r\n  -- and RCI.is_composition = false\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n  \r\n  Group by Produtos.code",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Código",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "noValue": "Sem etiqueta vinculada",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 8,
+            "y": 56
+          },
+          "id": 192,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Etiqueta Descrição$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Etiquetas.description AS \"Etiqueta Descrição\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN contract_service_tags Etiquetas ON Etiquetas.id = RCI.contract_service_tag_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Etiqueta Descrição",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Valor Produto"
+                },
+                "properties": [
+                  {
+                    "id": "decimals",
+                    "value": 2
+                  },
+                  {
+                    "id": "unit",
+                    "value": "currencyBRL"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 56
+          },
+          "id": 40,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  RCI.total_amount AS \"Valor Produto\"\r\nFROM\r\n  contract_items RCI\r\n  JOIN contracts Contratos ON Contratos.id = RCI.contract_id\r\n  JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN people Clientes ON Clientes.id = Contratos.client_id\r\n  JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\nWHERE\r\n  Contratos.id IN ($Contrato)\r\n  AND Produtos.code IN ($Produtos)\r\n  -- and RCI.is_composition = false\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n  \r\n  group by RCI.total_amount",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Valor",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "noValue": "Sem etiqueta vinculada",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 59
+          },
+          "id": 190,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Etiqueta$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Etiquetas.service_tag AS \"Etiqueta\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN contract_service_tags Etiquetas ON Etiquetas.id = RCI.contract_service_tag_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Etiqueta",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "noValue": "Sem etiqueta vinculada",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": 0
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 59
+          },
+          "id": 191,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Etiqueta Titulo$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Etiquetas.title AS \"Etiqueta Titulo\"\r\nFROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN contract_service_tags Etiquetas ON Etiquetas.id = RCI.contract_service_tag_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Titulo Etiqueta",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Endereço vinculado diretamente ao Produto",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "text",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem endereço vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 16,
+            "x": 0,
+            "y": 62
+          },
+          "id": 195,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\nCONCAT (\r\n    Endereco.street,\r\n    ', ',\r\n    Endereco.number,\r\n    CASE\r\n      WHEN Endereco.address_complement IS NOT NULL\r\n      AND Endereco.address_complement != '' THEN CONCAT (' - ', Endereco.address_complement)\r\n      ELSE ''\r\n    END,\r\n    ' - ',\r\n    Endereco.neighborhood\r\n  )\r\n AS \"Endereço Completo\"\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_item_id = RCI.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Endereço",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "CEP vinculado diretamente ao Produto",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem CEP vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 16,
+            "y": 62
+          },
+          "id": 220,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^CEP$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Endereco.postal_code as \"CEP\"\r\n\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_item_id = RCI.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CEP",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Cidade vinculado diretamente ao Produto",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem cidade vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 19,
+            "y": 62
+          },
+          "id": 221,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Endereço$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  CONCAT(Endereco.city, ' - ', Endereco.state, ', ', Endereco.country) as \"Endereço\"\r\n\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_item_id = RCI.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Cidade",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "Endereço vinculado diretamente ao Contrato especifico",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "text",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem endereço vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "dark-green",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 16,
+            "x": 0,
+            "y": 66
+          },
+          "id": 448,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\nCONCAT (\r\n    Endereco.street,\r\n    ', ',\r\n    Endereco.number,\r\n    CASE\r\n      WHEN Endereco.address_complement IS NOT NULL\r\n      AND Endereco.address_complement != '' THEN CONCAT (' - ', Endereco.address_complement)\r\n      ELSE ''\r\n    END,\r\n    ' - ',\r\n    Endereco.neighborhood\r\n  )\r\n AS \"Endereço Completo\"\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_id = Contratos.id AND AC.service_product_id = Produtos.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n    LIMIT 1\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Endereço",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "CEP vinculado diretamente ao Contrato especifico",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem CEP vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 3,
+            "x": 16,
+            "y": 66
+          },
+          "id": 449,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^CEP$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  Endereco.postal_code as \"CEP\"\r\n\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_id = Contratos.id AND AC.service_product_id = Produtos.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n    LIMIT 1\r\n\r\n    \r\n\r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CEP",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "beuvtsto1cglcd"
+          },
+          "description": "CEP vinculado diretamente ao Contrato especifico",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "color": "dark-red",
+                      "index": 0,
+                      "text": "Sem cidade vinculado"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": 0
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 19,
+            "y": 66
+          },
+          "id": 450,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Endereço$/",
+              "values": true
+            },
+            "showPercentChange": false,
+            "text": {
+              "valueSize": 30
+            },
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "12.1.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "beuvtsto1cglcd"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT\r\n  CONCAT(Endereco.city, ' - ', Endereco.state, ', ', Endereco.country) as \"Endereço\"\r\n\r\n  FROM\r\n  people Clientes\r\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\r\n  AND Contratos.deleted = false\r\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\r\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\r\n  LEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id\r\n  AND RCI.deleted = false\r\n  LEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\r\n  JOIN authentication_contracts AC ON AC.contract_id = Contratos.id AND AC.service_product_id = Produtos.id\r\n  JOIN people_addresses Endereco ON Endereco.id = AC.people_address_id\r\nWHERE\r\n  -- RCI.is_composition = false\r\n   Produtos.code IN ($Produtos)\r\n  AND Contratos.id IN ($Contrato)\r\n  AND Vendedor.id = $GN\r\n    and RCI.deleted = false\r\n    LIMIT 1\r\n\r\n    \r\n\r\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "planned_amount"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "table": "assignments",
+              "timeColumn": "beginning_date",
+              "timeColumnType": "timestamp",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "Cidade",
+          "type": "stat"
+        }
+      ],
+      "repeat": "Produtos",
+      "title": "$Produtos",
+      "type": "row"
+    }
+  ],
+  "preload": false,
+  "refresh": false,
+  "schemaVersion": 41,
+  "tags": [
+    "Elleven"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "label": "Razão Social",
+        "name": "razao_social",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "label": "Nome Fantasia",
+        "name": "nome_fantasia",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "name": "CNPJ",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "label": "ID Contrato",
+        "name": "id_contrato",
+        "options": [
+          {
+            "selected": true,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "293",
+          "value": "293"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "beuvtsto1cglcd"
+        },
+        "definition": "SELECT \n Cliente.id\n\nFROM\n  people AS Cliente\n  LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\n  LEFT JOIN people_crm_informations pci ON pci.person_id = Cliente.id\n  LEFT JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\nWHERE Vendedor.id = $GN\n\n\n",
+        "hide": 2,
+        "includeAll": false,
+        "label": "Clientes",
+        "name": "Clientes",
+        "options": [],
+        "query": "SELECT \n Cliente.id\n\nFROM\n  people AS Cliente\n  LEFT JOIN contracts Contratos ON Cliente.id = Contratos.client_id\n  LEFT JOIN people_crm_informations pci ON pci.person_id = Cliente.id\n  LEFT JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\nWHERE Vendedor.id = $GN\n\n\n",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "Contrato Nº 1050 (L-8313959) - ZARELLI SUPERMERCADOS LTDA",
+          "value": "1050"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "beuvtsto1cglcd"
+        },
+        "definition": "SELECT \nCONCAT( Contratos.id, '__',  Contratos.description)\n\nFROM\n  people AS Clientes\n  LEFT JOIN contracts Contratos ON Clientes.id = Contratos.client_id\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\nWHERE\n  Clientes.id IN ($Clientes)\n  AND Vendedor.id = $GN\n  AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\n",
+        "hide": 2,
+        "includeAll": false,
+        "name": "Contrato",
+        "options": [],
+        "query": "SELECT \nCONCAT( Contratos.id, '__',  Contratos.description)\n\nFROM\n  people AS Clientes\n  LEFT JOIN contracts Contratos ON Clientes.id = Contratos.client_id\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\nWHERE\n  Clientes.id IN ($Clientes)\n  AND Vendedor.id = $GN\n  AND Contratos.v_stage != 'Cancelado' -- Aspas simples para string literal\n",
+        "refresh": 1,
+        "regex": "/(?<value>.*)__(?<text>.*)/",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "beuvtsto1cglcd"
+        },
+        "definition": "SELECT\n\nCONCAT( Produtos.code, '__', Produtos.title)\n\nFROM people Clientes\nJOIN contracts Contratos ON Clientes.id=Contratos.client_id AND Contratos.deleted = false\nLEFT JOIN people Vendedor ON Contratos.seller_1_id = Vendedor.user_id\nLEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id AND RCI.deleted = false\nLEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\n\nWHERE Contratos.id IN ($Contrato)\n\n-- and RCI.is_composition = false\nGROUP by Produtos.id",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "Produtos",
+        "options": [],
+        "query": "SELECT\n\nCONCAT( Produtos.code, '__', Produtos.title)\n\nFROM people Clientes\nJOIN contracts Contratos ON Clientes.id=Contratos.client_id AND Contratos.deleted = false\nLEFT JOIN people Vendedor ON Contratos.seller_1_id = Vendedor.user_id\nLEFT JOIN contract_items RCI ON RCI.contract_id = Contratos.id AND RCI.deleted = false\nLEFT JOIN service_products Produtos ON Produtos.id = RCI.service_product_id\n\nWHERE Contratos.id IN ($Contrato)\n\n-- and RCI.is_composition = false\nGROUP by Produtos.id",
+        "refresh": 1,
+        "regex": "/(?<value>.*)__(?<text>.*)/",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "Cleisson Nilton Jardim Ferreira",
+          "value": "163"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "beuvtsto1cglcd"
+        },
+        "definition": "SELECT \nCONCAT(Vendedor.id, '__', Vendedor.name)\n\n FROM people AS Cliente \n INNER JOIN people_crm_informations pci ON pci.person_id = Cliente.id\n INNER JOIN people AS Vendedor ON Vendedor.id=pci.proprietary_id\n",
+        "includeAll": false,
+        "name": "GN",
+        "options": [],
+        "query": "SELECT \nCONCAT(Vendedor.id, '__', Vendedor.name)\n\n FROM people AS Cliente \n INNER JOIN people_crm_informations pci ON pci.person_id = Cliente.id\n INNER JOIN people AS Vendedor ON Vendedor.id=pci.proprietary_id\n",
+        "refresh": 1,
+        "regex": "/(?<value>.*)__(?<text>.*)/",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "beuvtsto1cglcd"
+        },
+        "definition": "SELECT\n  Contato.id\nFROM\n  people Clientes\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\n  INNER JOIN people_contacts PC ON PC.person_id = Clientes.id\n  INNER JOIN people Contato ON Contato.id = PC.contact_id\nwhere\n  Clientes.id IN ($Clientes)\n  AND Vendedor.id = $GN",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "contatos",
+        "options": [],
+        "query": "SELECT\n  Contato.id\nFROM\n  people Clientes\n  JOIN contracts Contratos ON Clientes.id = Contratos.client_id\n  INNER JOIN people_crm_informations pci ON pci.person_id = Clientes.id\n  INNER JOIN people AS Vendedor ON Vendedor.id = pci.proprietary_id\n  INNER JOIN people_contacts PC ON PC.person_id = Clientes.id\n  INNER JOIN people Contato ON Contato.id = PC.contact_id\nwhere\n  Clientes.id IN ($Clientes)\n  AND Vendedor.id = $GN",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now/y",
+    "to": "now/y"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "[FUNTER] - CONSULTA BASE DE CARTEIRA - V2.0",
+  "uid": "auhsp60Nk",
+  "version": 6
+}
